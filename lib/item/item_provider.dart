@@ -10,16 +10,15 @@ class ItemNotifier extends StateNotifier<List<Item>>{
 
   void addItem(String name){
     final item = Item(id: DateTime.now().toString(), name: name);
-    state.add(item);
-    state =  state.toList();
+    state =  [...state,item];
   }
   void removeItem (String id) {
     state.removeWhere((item)=> id == item.id);
     state = state.toList();
   }
   void editItem (String id, String name) {
-    int currentItem = state.indexWhere((item)=> id == item.id);
-    state[currentItem] = Item(id: id, name: name);
+    int currentItem = state.indexWhere((item)=> item.id == id);
+    state[currentItem] = state[currentItem].copyWith(name,id);
     state = state.toList();
   }
 }
